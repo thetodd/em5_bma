@@ -1,0 +1,56 @@
+{
+    "Format": {
+        "Type": "prefab",
+        "Version": "2",
+        "DifferenceToDefault": "true"
+    },
+    "Prototypes": {
+        "2644604236": {
+            "qsf::MetadataComponent": {
+                "Prefab": "18446744073709551615",
+                "Name": "bma"
+            },
+            "qsf::MeshComponent": {
+                "Mesh": "1491230858"
+            },
+            "qsf::TransformComponent": {
+                "Scale": "0.5 0.5 0.5"
+            },
+            "flo11::BMAComponent": {
+                "AlarmLight": "0",
+                "TargetEntity": "3211312"
+            },
+            "qsf::LinkComponent": ""
+        },
+        "12401549633068551624": {
+            "qsf::MetadataComponent": {
+                "Prefab": "175291",
+                "Prototype": "8714888152863219952",
+                "Name": "alarmLight0"
+            },
+            "qsf::FlareComponent": {
+                "CastShadows": "false",
+                "BillboardType": "POINT",
+                "Color": "1 0.67451000213623047 0.019607799127697945 1",
+                "Intensity": "100"
+            },
+            "qsf::TransformComponent": {
+                "Position": "0.11870574951171875 1.2033015489578247 0.319976806640625"
+            },
+            "qsf::LightAnimationComponent": {
+                "Active": "false",
+                "AnimationType": "CUSTOM",
+                "AnimationCycle": "1",
+                "Fade": "true",
+                "CustomAnimationValues": "1.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000 0.000000"
+            },
+            "qsf::LinkComponent": {
+                "ParentLinkType": "HARD_LINK",
+                "ParentId": "2644604236",
+                "LocalPosition": "0.2374114990234375 2.4066030979156494 0.63995361328125",
+                "LocalRotation": "1 0 0 0",
+                "LocalScale": "1 1 1"
+            }
+        }
+    }
+}
