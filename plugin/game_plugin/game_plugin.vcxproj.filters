@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files\plugin">
+      <UniqueIdentifier>{8d5a3224-081d-45b3-84c1-5275bbb3b665}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\action">
+      <UniqueIdentifier>{3824e344-7d1a-46f4-b5e9-348a0b3b7c4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\command">
+      <UniqueIdentifier>{5f7a3a22-41eb-4a55-84e1-e8455e823911}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\component">
+      <UniqueIdentifier>{bf1fa1cb-2ee6-424e-8bd5-d9c3996db257}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\event">
+      <UniqueIdentifier>{e5bc1afe-4822-4fbf-8344-c839ff9f010c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="game_plugin\Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\PrecompiledHeader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\plugin\Plugin.cpp">
+      <Filter>Source Files\plugin</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\component\BMAComponent.cpp">
+      <Filter>Source Files\component</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\command\ResetBMACommand.cpp">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\action\ResetBMAAction.cpp">
+      <Filter>Source Files\action</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\event\BMAFireEvent.cpp">
+      <Filter>Source Files\event</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\event\BMAFireEventFactory.cpp">
+      <Filter>Source Files\event</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="game_plugin\Export.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\PrecompiledHeader.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\component\BMAComponent.h">
+      <Filter>Source Files\component</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\command\ResetBMACommand.h">
+      <Filter>Source Files\command</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\action\ResetBMAAction.h">
+      <Filter>Source Files\action</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\event\BMAFireEvent.h">
+      <Filter>Source Files\event</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\event\BMAFireEventFactory.h">
+      <Filter>Source Files\event</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="game_plugin\plugin\Plugin-inl.h">
+      <Filter>Source Files\plugin</Filter>
+    </None>
+    <None Include="game_plugin.pro" />
+    <None Include="game_plugin\plugin\Plugin.h">
+      <Filter>Source Files\plugin</Filter>
+    </None>
+  </ItemGroup>
+</Project>

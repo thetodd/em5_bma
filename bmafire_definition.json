@@ -1,0 +1,19 @@
+{
+    "Format":
+    {
+        "Type": "em5_eventpool",
+        "Version": "1"
+    },
+	"BMAFire_Definitions":
+	{	
+		"BMAFireEvent":
+		{
+			"Core": "EM5_General_Definitions/General_Building_Fire_Event",
+			"FactoryClass":	"flo11::BMAFireEventFactory", // Factory class implementation to use (to be set by a programmer/scripter)
+			
+			"EventName": "BMA Ausloesung in Gebaeude", // Will be reset by Event
+			"EventDensityValue": "5",
+			"MusicLevel": "Low"
+		}
+	}
+}

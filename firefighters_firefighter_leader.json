@@ -1,0 +1,31 @@
+{
+	"Format":
+	{
+		"Type": "em5_order_info",
+		"Version": "1"
+	},
+	"OrderInfo":
+	{
+		// Firefighter Group Leader (can reset BMA)
+		"Firefighter_Leader":
+		{
+			"Prefab": "em5/prefab/person/firefighters_leader",
+			"AvatarIcon": "firefighters_fireman",
+			"SelectionIcon": "firefighters_fireman",
+			"MiniMapIconType": "Firefighter",
+			"LocalizedName": "ID_NAME_FIREFIGHTER_LEADER",
+			"UnitTags": "Firefighters Person Firefighter",
+			"OrderCost": "150",
+			"OrderSpeed": "10",
+			"UnlockCost": "0",
+			"NumberAvailable": "0",
+			"PersonnelSpace": "0",
+			"StartPersonnel": "",
+			"PassengerSpace": "0",
+			"HelpPages":
+			[
+				"TUTORIAL_HELPTEXT_ENTER_FIREFIGHTER"
+			]
+		}
+	}
+}

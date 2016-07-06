@@ -1,0 +1,31 @@
+{
+	"Format":
+	{
+		"Type": "em5_order_info",
+		"Version": "1"
+	},
+	"OrderInfo":
+	{
+		// Firefighter plane command car (de: "Löschflugzeug-Kommandofahrzeug")
+		"KDOW":
+		{
+			"Prefab": "em5/prefab/vehicle/firefighters_kdow",
+			"AvatarIcon": "firefighters_kdow",
+			"SelectionIcon": "firefighters_kdow",
+			"MiniMapIconType": "FirefighterVehicle",
+			"LocalizedName": "ID_NAME_KDOW",
+			"UnitTags": "Firefighters Vehicle Road KDOW",
+			"OrderDepartment": "FireDepartment",
+			"OrderCost": "10",
+			"OrderSpeed": "10",
+			"UnlockCost": "0",
+			"NumberAvailable": "5",
+			"PersonnelSpace": "1",
+			"StartPersonnel": {
+				"Firefighter_Leader": "1"
+			},
+			"PassengerSpace": "0",
+			"HelpPages": ""
+		}
+	}
+}	 
