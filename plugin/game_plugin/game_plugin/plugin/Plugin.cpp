@@ -13,6 +13,7 @@
 #include "game_plugin/event/BMAFireEvent.h"
 #include "game_plugin/event/BMAFireEventFactory.h"
 #include "game_plugin/command/TriggerBMAEventCommand.h"
+#include "game_plugin/command/CheerCommand.h"
 
 #include <em5/plugin/version/PluginVersion.h>
 #include <em5/reflection/CampDefines.h>
@@ -57,6 +58,10 @@ namespace flo11
 				QSF_ADD_CAMP_PROPERTY(AlarmLight, BMAComponent::getAlarmLightId, BMAComponent::setAlarmLightId, "The AlarmLight", -1)
 				QSF_ADD_CAMP_PROPERTY(TargetEntity, BMAComponent::getTargetId, BMAComponent::setTargetId, "The Target to monitor", -1)
 				QSF_ADD_CAMP_PROPERTY(CanTrigger, BMAComponent::isCanTrigger, BMAComponent::setCanTrigger, "The BMA can trigger an event", true)
+			QSF_END_CAMP_CLASS_EXPORT
+
+			QSF_START_CAMP_CLASS_EXPORT(flo11::CheerCommand, "ChearCommand", "Cheers")
+				QSF_GAME_CAMP_IS_COMMAND
 			QSF_END_CAMP_CLASS_EXPORT
 
 			QSF_START_CAMP_CLASS_EXPORT(flo11::ResetBMACommand, "ResetBMACommand", "Reset an active BMA")

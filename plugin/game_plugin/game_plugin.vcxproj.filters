@@ -49,6 +49,9 @@
     <ClCompile Include="game_plugin\command\TriggerBMAEventCommand.cpp">
       <Filter>Source Files\command</Filter>
     </ClCompile>
+    <ClCompile Include="game_plugin\command\CheerCommand.cpp">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_plugin\Export.h">
@@ -73,6 +76,9 @@
       <Filter>Source Files\event</Filter>
     </ClInclude>
     <ClInclude Include="game_plugin\command\TriggerBMAEventCommand.h">
+      <Filter>Source Files\command</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\command\CheerCommand.h">
       <Filter>Source Files\command</Filter>
     </ClInclude>
   </ItemGroup>
