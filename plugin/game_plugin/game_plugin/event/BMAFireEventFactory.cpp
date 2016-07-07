@@ -50,6 +50,9 @@ namespace flo11
 
 		//Find target BMA
 		qsf::Entity* targetEntity = findTargetEntity();
+		if (targetEntity == nullptr) {
+			return nullptr; //No BMA available
+		}
 
 		// Create the event instance
 		BMAFireEvent& freeplayEvent = createAndInitializeEvent<BMAFireEvent>();
