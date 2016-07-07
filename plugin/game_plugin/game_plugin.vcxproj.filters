@@ -46,6 +46,9 @@
     <ClCompile Include="game_plugin\event\BMAFireEventFactory.cpp">
       <Filter>Source Files\event</Filter>
     </ClCompile>
+    <ClCompile Include="game_plugin\command\TriggerBMAEventCommand.cpp">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_plugin\Export.h">
@@ -68,6 +71,9 @@
     </ClInclude>
     <ClInclude Include="game_plugin\event\BMAFireEventFactory.h">
       <Filter>Source Files\event</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\command\TriggerBMAEventCommand.h">
+      <Filter>Source Files\command</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
