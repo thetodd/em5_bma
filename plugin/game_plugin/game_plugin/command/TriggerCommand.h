@@ -27,7 +27,7 @@ namespace flo11
 	*  @brief
 	*    Cheer command
 	*/
-	class CheerCommand : public em5::Command
+	class TriggerCommand : public em5::Command
 	{
 
 
@@ -46,7 +46,7 @@ namespace flo11
 		*  @brief
 		*    Constructor
 		*/
-		explicit CheerCommand(qsf::game::CommandManager* commandManager);
+		explicit TriggerCommand(qsf::game::CommandManager* commandManager);
 
 		bool checkCallerWithoutPriority(qsf::Entity& caller);
 
@@ -86,4 +86,4 @@ namespace flo11
 //[-------------------------------------------------------]
 //[ CAMP reflection system                                ]
 //[-------------------------------------------------------]
-QSF_CAMP_TYPE_NONCOPYABLE(flo11::CheerCommand)
+QSF_CAMP_TYPE_NONCOPYABLE(flo11::TriggerCommand)

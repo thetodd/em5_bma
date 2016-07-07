@@ -12,8 +12,7 @@
 #include "game_plugin/component/BMAComponent.h"
 #include "game_plugin/event/BMAFireEvent.h"
 #include "game_plugin/event/BMAFireEventFactory.h"
-#include "game_plugin/command/TriggerBMAEventCommand.h"
-#include "game_plugin/command/CheerCommand.h"
+#include "game_plugin/command/TriggerCommand.h"
 
 #include <em5/plugin/version/PluginVersion.h>
 #include <em5/reflection/CampDefines.h>
@@ -60,15 +59,11 @@ namespace flo11
 				QSF_ADD_CAMP_PROPERTY(CanTrigger, BMAComponent::isCanTrigger, BMAComponent::setCanTrigger, "The BMA can trigger an event", true)
 			QSF_END_CAMP_CLASS_EXPORT
 
-			QSF_START_CAMP_CLASS_EXPORT(flo11::CheerCommand, "ChearCommand", "Cheers")
-				QSF_GAME_CAMP_IS_COMMAND
-			QSF_END_CAMP_CLASS_EXPORT
-
 			QSF_START_CAMP_CLASS_EXPORT(flo11::ResetBMACommand, "ResetBMACommand", "Reset an active BMA")
 				QSF_GAME_CAMP_IS_COMMAND
 			QSF_END_CAMP_CLASS_EXPORT
 
-			QSF_START_CAMP_CLASS_EXPORT(flo11::TriggerBMAEventCommand, "TriggerBMAEvent", "Triggers a BMA event for debugging")
+			QSF_START_CAMP_CLASS_EXPORT(flo11::TriggerCommand, "TriggerCommand", "Triggers a BMA event for debugging")
 				QSF_GAME_CAMP_IS_COMMAND
 			QSF_END_CAMP_CLASS_EXPORT
 

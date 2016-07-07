@@ -8,8 +8,15 @@
         <translation>BMA zurücksetzen</translation>
     </message>
     <message>
-        <source>ID_EVENT_NAME</source>
-        <translation>BMA ausgelöst</translation>
+        <source>ID_BMA_FIRE_EVENT_NAME</source>
+        <translation>BMA</translation>
+    </message>
+</context>
+<context>
+    <name>flo11::TriggerBMAEventCommand</name>
+    <message>
+        <source>ID_CMD_TRIGGER_BMA_EVENT</source>
+        <translation>BMA zur Probe auslösen</translation>
     </message>
 </context>
 </TS>

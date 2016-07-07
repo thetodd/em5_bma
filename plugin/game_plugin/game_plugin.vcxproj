@@ -105,9 +105,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="game_plugin\action\ResetBMAAction.cpp" />
-    <ClCompile Include="game_plugin\command\CheerCommand.cpp" />
     <ClCompile Include="game_plugin\command\ResetBMACommand.cpp" />
-    <ClCompile Include="game_plugin\command\TriggerBMAEventCommand.cpp" />
+    <ClCompile Include="game_plugin\command\TriggerCommand.cpp" />
     <ClCompile Include="game_plugin\component\BMAComponent.cpp" />
     <ClCompile Include="game_plugin\event\BMAFireEvent.cpp" />
     <ClCompile Include="game_plugin\event\BMAFireEventFactory.cpp" />
@@ -120,9 +119,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_plugin\action\ResetBMAAction.h" />
-    <ClInclude Include="game_plugin\command\CheerCommand.h" />
     <ClInclude Include="game_plugin\command\ResetBMACommand.h" />
-    <ClInclude Include="game_plugin\command\TriggerBMAEventCommand.h" />
+    <ClInclude Include="game_plugin\command\TriggerCommand.h" />
     <ClInclude Include="game_plugin\component\BMAComponent.h" />
     <ClInclude Include="game_plugin\event\BMAFireEvent.h" />
     <ClInclude Include="game_plugin\event\BMAFireEventFactory.h" />
