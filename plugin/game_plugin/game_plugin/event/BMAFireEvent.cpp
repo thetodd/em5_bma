@@ -153,8 +153,10 @@ namespace flo11
 		//QSF_LOG_PRINTF(INFO, "Entites: %d and %d", entityId, this->mTargetBMA->getId());
 		if (entityId == this->mTargetBMA->getId()) {
 			//BMA was reset
-			//TODO: check for nullptr in objective
-			getObjectives().getObjectiveByTypeId(qsf::StringHash("ResetBMA"))->setAccomplished();
+			em5::Objective* objective = getObjectives().getObjectiveByTypeId(qsf::StringHash("ResetBMA"));
+			if (nullptr != objective) {
+				objective->setAccomplished();
+			}
 		}
 	}
 
