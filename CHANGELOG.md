@@ -5,6 +5,8 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ## [Unreleased]
 ### Fixed
 - Event creation fails if no BMA is available
+- Debug command executes on right click on vehicle
+- Crash if try to reset BMA when not all fires are extinguished in BMA-Event
 
 ## [0.1.1] 2016-07-07
 ### Added
