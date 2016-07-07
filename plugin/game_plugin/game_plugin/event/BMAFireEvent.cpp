@@ -89,6 +89,7 @@ namespace flo11
 
 
 		mMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAResetActionFinished"), boost::bind(&BMAFireEvent::onResetBMAFinished, this, _1));
+		mTargetBurningMessageProxy.registerAt(qsf::MessageConfiguration(em5::Messages::EM5_OBJECT_STOP_BURNING, bma->getTargetId()), boost::bind(&BMAFireEvent::onTargetStopBurning, this, _1));
 
 		setRunning();
 		// Done
@@ -124,14 +125,6 @@ namespace flo11
 
 	void BMAFireEvent::updateFreeplayEvent(const qsf::Time& timePassed)
 	{
-		if (getObjectives().getObjectiveByTypeId(em5::ObjectiveHelper::OBJECTIVE_NEED_EXTINGUISHFIRES)->checkAccomplished() &&
-			getObjectives().getObjectiveByTypeId(qsf::StringHash("ResetBMA")) == nullptr) {
-			//Add new Objective if all fires are done and no reset objective is generated
-			em5::Objective& resetObjective = getObjectives().getOrCreateObjective(qsf::StringHash("ResetBMA"), em5::Objective::OBJECTIVETYPE_REQUIRED, getId());
-			resetObjective.setText(QT_TR_NOOP("ID_RESET_BMA_OBJECTIVE_TEXT"));
-			resetObjective.setNeededNumber(1);
-		}
-
 		// Check objectives for success or failure
 		checkObjectivesState();
 	}
@@ -160,7 +153,23 @@ namespace flo11
 		//QSF_LOG_PRINTF(INFO, "Entites: %d and %d", entityId, this->mTargetBMA->getId());
 		if (entityId == this->mTargetBMA->getId()) {
 			//BMA was reset
+			//TODO: check for nullptr in objective
 			getObjectives().getObjectiveByTypeId(qsf::StringHash("ResetBMA"))->setAccomplished();
+		}
+	}
+
+	void BMAFireEvent::onTargetStopBurning(const qsf::MessageParameters& parameters)
+	{
+		uint64 entityId;
+		parameters.getParameter<uint64>("EntityId", entityId);
+
+		//Only add objective once
+		if (getObjectives().getObjectiveByTypeId(qsf::StringHash("ResetBMA")) == nullptr) {
+			//Add new Objective for reset BMA
+			em5::Objective& resetObjective = getObjectives().getOrCreateObjective(qsf::StringHash("ResetBMA"),
+				em5::Objective::OBJECTIVETYPE_REQUIRED, getId());
+			resetObjective.setText(QT_TR_NOOP("ID_RESET_BMA_OBJECTIVE_TEXT"));
+			resetObjective.setNeededNumber(1);
 		}
 	}
 

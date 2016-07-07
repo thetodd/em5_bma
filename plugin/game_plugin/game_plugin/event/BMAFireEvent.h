@@ -78,6 +78,7 @@ namespace flo11
 	//[-------------------------------------------------------]
 	private:
 		void onResetBMAFinished(const qsf::MessageParameters& parameters);
+		void onTargetStopBurning(const qsf::MessageParameters& parameters);
 
 	//[-------------------------------------------------------]
 	//[ Private data                                          ]
@@ -85,6 +86,7 @@ namespace flo11
 	private:
 		qsf::Entity* mTargetBMA;
 		qsf::MessageProxy mMessageProxy;
+		qsf::MessageProxy mTargetBurningMessageProxy;
 
 
 	//[-------------------------------------------------------]
