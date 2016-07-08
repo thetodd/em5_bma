@@ -3,6 +3,11 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+
+## [0.2] 2016-07-08
+### Added
+- Play sound on trigger BMA
+
 ### Fixed
 - Event creation fails if no BMA is available
 - Debug command executes on right click on vehicle
