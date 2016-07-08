@@ -55,6 +55,7 @@ namespace flo11
 				QSF_CAMP_IS_COMPONENT
 				QSF_ADD_CAMP_PROPERTY(Name, BMAComponent::getName, BMAComponent::setName, "The BMA name", "")
 				QSF_ADD_CAMP_PROPERTY(AlarmLight, BMAComponent::getAlarmLightId, BMAComponent::setAlarmLightId, "The AlarmLight", -1)
+				QSF_ADD_CAMP_PROPERTY(AlarmSound, BMAComponent::getAlarmSound, BMAComponent::setAlarmSound, "The AlarmSound Filename", "")
 				QSF_ADD_CAMP_PROPERTY(TargetEntity, BMAComponent::getTargetId, BMAComponent::setTargetId, "The Target to monitor", -1)
 				QSF_ADD_CAMP_PROPERTY(CanTrigger, BMAComponent::isCanTrigger, BMAComponent::setCanTrigger, "The BMA can trigger an event", true)
 			QSF_END_CAMP_CLASS_EXPORT

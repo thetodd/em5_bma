@@ -3,6 +3,7 @@
 #include "game_plugin/Export.h"
 
 #include <qsf/component/Component.h>
+#include <qsf/audio/AudioProxy.h>
 
 namespace flo11
 {
@@ -32,10 +33,13 @@ namespace flo11
 		uint64 getAlarmLightId();
 		void setAlarmLightId(uint64 id);
 		uint64 getTargetId();
+		qsf::Entity* getTargetEntity();
 		void setTargetId(uint64 id);
 		bool thereAreFiresInside();
 		bool isCanTrigger();
 		void setCanTrigger(bool canTrigger);
+		void setAlarmSound(std::string filePath);
+		std::string getAlarmSound();
 
 	protected:
 		void setAlarmLights(bool state);
@@ -46,6 +50,8 @@ namespace flo11
 		uint64 alarmLightEntityId;
 		uint64 monitoringEntityId;
 		bool mCanTrigger;
+		qsf::AudioProxy alarmSound;
+		std::string mAlarmSoundName;
 
 		QSF_CAMP_RTTI()	// Only adds the virtual method "campClassId()", nothing more
 

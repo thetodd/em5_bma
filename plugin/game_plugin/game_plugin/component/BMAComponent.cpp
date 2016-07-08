@@ -9,7 +9,9 @@
 #include <qsf/map/Map.h>
 #include <qsf/map/MapSystem.h>
 #include <qsf/map/Entity.h>
+#include <qsf/map/EntityHelper.h>
 #include <qsf/renderer/light/LightAnimationComponent.h>
+#include <qsf/audio/AudioManager.h>
 
 namespace flo11
 {
@@ -21,7 +23,7 @@ namespace flo11
 		name(""),
 		mCanTrigger(true)
 	{
-		// Nothing to do in here
+		
 	}
 
 	BMAComponent::~BMAComponent()
@@ -39,6 +41,14 @@ namespace flo11
 		this->active = true;
 		//activate AlarmLight
 		this->setAlarmLights(true);
+
+		//play sound
+		if (this->getAlarmSound() != "") {
+			qsf::EntityHelper entityHelper(*this->getTargetEntity());
+			alarmSound.sourceFile(this->getAlarmSound()).spatial().position(entityHelper.getPosition())
+				//.referenceDistance(20.0f).maximumDistance(150.0f)
+				.channel(qsf::AudioManager::MIXERCHANNEL_SFX).loop().play();
+		}
 	}
 
 	void BMAComponent::reset()
@@ -46,6 +56,7 @@ namespace flo11
 		this->active = false;
 		//deactivate AlarmLight
 		this->setAlarmLights(false);
+		alarmSound.stop();
 	}
 
 	void BMAComponent::setName(std::string name)
@@ -111,6 +122,22 @@ namespace flo11
 	void BMAComponent::setCanTrigger(bool canTrigger)
 	{
 		this->mCanTrigger = canTrigger;
+	}
+
+	qsf::Entity* BMAComponent::getTargetEntity()
+	{
+		qsf::Entity* targetEntity = QSF_MAINMAP.getEntityById(this->getTargetId());
+		return targetEntity;
+	}
+
+	void BMAComponent::setAlarmSound(std::string filePath)
+	{
+		this->mAlarmSoundName = filePath;
+	}
+
+	std::string BMAComponent::getAlarmSound()
+	{
+		return this->mAlarmSoundName;
 	}
 
 }
