@@ -21,6 +21,8 @@
 
 #include <qsf/map/Entity.h>							// Needed to avoid "error C2664: 'user::IndicatorComponent::IndicatorComponent(const user::IndicatorComponent &)' : cannot convert argument 1 from 'qsf::Entity *' to 'qsf::Prototype *' (game_plugin\plugin\Plugin.cpp)"
 #include <qsf/localization/LocalizationSystem.h>	// Defines the "QT_TR_NOOP()"-macro
+#include <qsf/prototype/helper/SlotHelper.h>
+#include <qsf/plugin/QsfAssetTypes.h>
 
 
 //[-------------------------------------------------------]
@@ -54,9 +56,9 @@ namespace flo11
 			QSF_START_CAMP_CLASS_EXPORT(flo11::BMAComponent, "BMAComponent", "ID_USER_COMPONENT_INDICATOR_DESCRIPTION")
 				QSF_CAMP_IS_COMPONENT
 				QSF_ADD_CAMP_PROPERTY(Name, BMAComponent::getName, BMAComponent::setName, "The BMA name", "")
-				QSF_ADD_CAMP_PROPERTY(AlarmLight, BMAComponent::getAlarmLightId, BMAComponent::setAlarmLightId, "The AlarmLight", -1)
-				QSF_ADD_CAMP_PROPERTY(AlarmSound, BMAComponent::getAlarmSound, BMAComponent::setAlarmSound, "The AlarmSound Filename", "")
-				QSF_ADD_CAMP_PROPERTY(TargetEntity, BMAComponent::getTargetId, BMAComponent::setTargetId, "The Target to monitor", -1)
+				QSF_ADD_CAMP_ARRAY_PROPERTY(AlarmLights, flo11::BMAComponent::mAlarmLights, "The AlarmLight Slot").tag("Slot", qsf::SlotHelper::SOFT_LINK_TYPE)
+				QSF_ADD_CAMP_PROPERTY(AlarmSound, BMAComponent::getAlarmSound, BMAComponent::setAlarmSound, "The AlarmSound Filename", "").tag("AssetType", qsf::QsfAssetTypes::AUDIO.getName())
+				QSF_ADD_CAMP_PROPERTY(TargetEntity, BMAComponent::getTargetId, BMAComponent::setTargetId, "The Target to monitor", 0).tag("Slot", qsf::SlotHelper::SOFT_LINK_TYPE)
 				QSF_ADD_CAMP_PROPERTY(CanTrigger, BMAComponent::isCanTrigger, BMAComponent::setCanTrigger, "The BMA can trigger an event", true)
 			QSF_END_CAMP_CLASS_EXPORT
 

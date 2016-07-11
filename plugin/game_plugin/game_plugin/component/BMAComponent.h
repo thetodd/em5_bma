@@ -13,6 +13,7 @@ namespace flo11
 
 	public:
 		static const uint32 COMPONENT_ID;
+		std::vector<uint64> mAlarmLights;
 
 	public:
 		/**
@@ -30,8 +31,6 @@ namespace flo11
 		bool getActiveState();
 		std::string getName();
 		void setName(std::string radioName);
-		uint64 getAlarmLightId();
-		void setAlarmLightId(uint64 id);
 		uint64 getTargetId();
 		qsf::Entity* getTargetEntity();
 		void setTargetId(uint64 id);
@@ -47,11 +46,10 @@ namespace flo11
 	private:
 		bool active;
 		std::string name;
-		uint64 alarmLightEntityId;
 		uint64 monitoringEntityId;
 		bool mCanTrigger;
 		qsf::AudioProxy alarmSound;
-		std::string mAlarmSoundName;
+		qsf::AssetProxy mAlarmSound;
 
 		QSF_CAMP_RTTI()	// Only adds the virtual method "campClassId()", nothing more
 
