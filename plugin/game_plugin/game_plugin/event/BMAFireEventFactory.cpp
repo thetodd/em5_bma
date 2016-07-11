@@ -108,6 +108,12 @@ namespace flo11
 			return false;
 		}
 
+		const em5::EntityHelper entityHelper(*component->getTargetEntity());
+		// Check if entity is a valid event target, i.e. is entity in another event
+		if (!entityHelper.isEntityValidEventTarget()) {
+			return false;
+		}
+
 		return true;
 	}
 

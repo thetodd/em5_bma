@@ -63,11 +63,16 @@ namespace flo11
 		this->setEventName(eventName);
 		this->setNormalPointGain(500);
 
+
 		bma->detectFire(); //BMA AUslösen
 
 		//set Building on fire
 		qsf::Entity* targetEntity = QSF_MAINMAP.getEntityById(bma->getTargetId());
 		if (targetEntity != nullptr) {
+			// Mark the entity so it wont get effected by other events
+			em5::EventIdComponent& eventIdComponent = targetEntity->getOrCreateComponentSafe<em5::EventIdComponent>();
+			eventIdComponent.setEvent(*this, em5::eventspreadreason::NO_REASON);
+
 			em5::ComplexFireComponent* fireComp = targetEntity->getComponent<em5::ComplexFireComponent>();
 			em5::FireComponent* sFireComp = targetEntity->getComponent<em5::FireComponent>();
 			if (fireComp != nullptr) {
@@ -111,6 +116,9 @@ namespace flo11
 		if (damage != nullptr) {
 			damage->setDamageState(em5::DamageComponent::DamageState::DAMAGESTATE_INTACT);
 		}
+
+		// Remove event ID component
+		targetEntity->destroyComponent<em5::EventIdComponent>();
 	}
 
 	void BMAFireEvent::onRun()

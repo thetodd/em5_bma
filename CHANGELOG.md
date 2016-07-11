@@ -6,6 +6,9 @@ This project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - Slot support for AlarmLights, TargetEntity and AlarmSound
 
+### Fixed
+- Crash in case an event is retriggert on a BMA which prev event is not finished.
+
 ## [0.2] 2016-07-08
 ### Added
 - Play sound on trigger BMA
