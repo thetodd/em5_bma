@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Slot support for AlarmLights, TargetEntity and AlarmSound
 
 ## [0.2] 2016-07-08
 ### Added
