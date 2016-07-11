@@ -45,7 +45,7 @@ namespace flo11
 		//play sound
 		if (this->getAlarmSound() != "") {
 			qsf::EntityHelper entityHelper(*this->getTargetEntity());
-			alarmSound.sourceFile(this->getAlarmSound()).spatial().position(entityHelper.getPosition())
+			alarmSound.sourceFile(mAlarmSound).spatial().position(entityHelper.getPosition())
 				//.referenceDistance(20.0f).maximumDistance(150.0f)
 				.channel(qsf::AudioManager::MIXERCHANNEL_SFX).loop().play();
 		}
@@ -69,17 +69,6 @@ namespace flo11
 		return this->name;
 	}
 
-	uint64 BMAComponent::getAlarmLightId()
-	{
-		return this->alarmLightEntityId;
-	}
-
-	void BMAComponent::setAlarmLightId(uint64 id)
-	{
-		this->alarmLightEntityId = id;
-		this->setAlarmLights(false);
-	}
-
 	uint64 BMAComponent::getTargetId()
 	{
 		return this->monitoringEntityId;
@@ -92,13 +81,17 @@ namespace flo11
 
 	void BMAComponent::setAlarmLights(bool state)
 	{
-		qsf::Entity* alarmLight = QSF_MAINMAP.getEntityById(this->alarmLightEntityId);
-		if (alarmLight != nullptr) {
-			qsf::LightAnimationComponent* light = alarmLight->getComponent<qsf::LightAnimationComponent>();
-			if (light != nullptr) {
-				light->setActive(state);
+		//Foreach all alarmlights
+		for (const uint64 alarmLightId : mAlarmLights) {
+			qsf::Entity* alarmLight = QSF_MAINMAP.getEntityById(alarmLightId);
+			if (alarmLight != nullptr) {
+				qsf::LightAnimationComponent* light = alarmLight->getComponent<qsf::LightAnimationComponent>();
+				if (light != nullptr) {
+					light->setActive(state);
+				}
 			}
 		}
+		
 	}
 
 	bool BMAComponent::thereAreFiresInside()
@@ -130,14 +123,14 @@ namespace flo11
 		return targetEntity;
 	}
 
-	void BMAComponent::setAlarmSound(std::string filePath)
+	void BMAComponent::setAlarmSound(std::string file)
 	{
-		this->mAlarmSoundName = filePath;
+		this->mAlarmSound.setLocalAssetName(file);
 	}
 
 	std::string BMAComponent::getAlarmSound()
 	{
-		return this->mAlarmSoundName;
+		return this->mAlarmSound.getLocalAssetName();
 	}
 
 }
