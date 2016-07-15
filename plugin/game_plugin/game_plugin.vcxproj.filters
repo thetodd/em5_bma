@@ -92,7 +92,7 @@
     </ClInclude>
     <ClInclude Include="game_plugin\event\BMAFalseAlarmEventFactory.h">
       <Filter>Source Files\event</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="game_plugin\command\InvestigateCommand.h">
       <Filter>Source Files\command</Filter>
     </ClInclude>

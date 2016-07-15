@@ -73,7 +73,7 @@ namespace flo11
 	{
 		// Access the caller's action plan
 		//qsf::ActionComponent& actionComponent = getActionComponent(*context.mCaller);
-		EM5_FREEPLAY.triggerEventByPath("BMAEvent_Definitions/BMAFalseAlarmEvent");
+		EM5_FREEPLAY.triggerEventByPath("BMAEvent_Definitions/BMAFireEvent");
 	}
 
 

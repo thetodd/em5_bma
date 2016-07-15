@@ -42,20 +42,26 @@ namespace flo11
 
 	bool ResetBMACommand::checkContext(const qsf::game::CommandContext& context)
 	{
+		//QSF_LOG_PRINTS(INFO, "BMA check context");
+
 		BMAComponent* bma = context.mTargetEntity->getComponent<flo11::BMAComponent>();
 		if (bma == nullptr) {
+			//QSF_LOG_PRINTS(INFO, "BMA component not existing");
 			return false;
 		}
 
 		if (bma->getActiveState() == false) {
 			//can't reset inactive bma
+			QSF_LOG_PRINTS(INFO, "BMA not active");
 			return false;
 		}
 		else if (bma->thereAreFiresInside()) {
+			QSF_LOG_PRINTS(INFO, "BMA on fire");
 			return false;
 		}
 
 		if (bma->isInvestigated() == false) {
+			QSF_LOG_PRINTS(INFO, "BMA not investigated, investigate bma first.");
 			return false;
 			//Investigate BMA first!
 		}

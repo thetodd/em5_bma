@@ -59,8 +59,14 @@ namespace flo11
 	{
 		BMAComponent* bma = mTargetBMA->getComponent<flo11::BMAComponent>();
 		//No nullptr check, EventFactory did that already
+		qsf::Entity* targetEntity = QSF_MAINMAP.getEntityById(bma->getTargetId());
+		if (targetEntity != nullptr) {
+			// Mark the entity so it wont get effected by other events
+			em5::EventIdComponent& eventIdComponent = targetEntity->getOrCreateComponentSafe<em5::EventIdComponent>();
+			eventIdComponent.setEvent(*this, em5::eventspreadreason::NO_REASON);
+		}
 		
-		std::string eventName = QSF_TRANSLATE_CONTEXTSTRING("flo11::BMAFireEvent", "ID_BMA_FIRE_EVENT_NAME");
+		std::string eventName = QSF_TRANSLATE_CONTEXTSTRING("flo11::BMAFalseAlarmEvent", "ID_BMA_NO_FIRE_EVENT_NAME");
 		eventName.append(": ");
 		eventName.append(bma->getName());
 
@@ -70,8 +76,8 @@ namespace flo11
 
 		bma->detectFire(); //BMA AUslösen
 
-		mInvestigatingMessageProxy.registerAt(qsf::MessageConfiguration("flo11:InvestigationFinished", bma->getId()), boost::bind(&BMAFalseAlarmEvent::onInvestigationFinished, this, _1));
-		mResetBMAMessageProxy.registerAt(qsf::MessageConfiguration("flo11:BMAResetActionFinished"), boost::bind(&BMAFalseAlarmEvent::onResetBMAFinished, this, _1));
+		mInvestigatingMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAInvestigationFinished", bma->getEntityId()), boost::bind(&BMAFalseAlarmEvent::onInvestigationFinished, this, _1));
+		mResetBMAMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAResetActionFinished"), boost::bind(&BMAFalseAlarmEvent::onResetBMAFinished, this, _1));
 
 		setRunning();
 		// Done
@@ -122,7 +128,7 @@ namespace flo11
 
 	void BMAFalseAlarmEvent::onResetBMAFinished(const qsf::MessageParameters& parameters)
 	{
-		//QSF_LOG_PRINTS(INFO, "ResetBMAFinished");
+		QSF_LOG_PRINTS(INFO, "ResetBMAFinished");
 		uint64 entityId;
 		parameters.getParameter<uint64>("EntityId", entityId);
 		//QSF_LOG_PRINTF(INFO, "Entites: %d and %d", entityId, this->mTargetBMA->getId());
@@ -137,7 +143,8 @@ namespace flo11
 
 	void BMAFalseAlarmEvent::onInvestigationFinished(const qsf::MessageParameters& parameters)
 	{
-		EM5_GUI.getIngameHud().getMessageWindow()->addTextMessage(QT_TR_NOOP("ID_FIRE_IN_BUILDING"), qsf::Color3::ORANGE);
+		QSF_LOG_PRINTS(INFO, "Investigation completed.");
+		EM5_GUI.getIngameHud().getMessageWindow()->addTextMessage(QT_TR_NOOP("ID_NO_FIRE_IN_BUILDING"), qsf::Color3::ORANGE);
 		uint64 entityId;
 		parameters.getParameter<uint64>("EntityId", entityId);
 

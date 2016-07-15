@@ -164,6 +164,7 @@ namespace flo11
 				parameters.setParameter("EntityId", getTargetEntityId());
 				QSF_MESSAGE.emitMessage(qsf::MessageConfiguration("flo11::BMAInvestigationFinished", getTargetEntityId()), parameters);
 				//EM5_GUI.getIngameHud().getMessageWindow()->addTextMessage("Hello World");
+				bma->setInvestigatedState(true);
 
 				return qsf::action::RESULT_DONE;
 			}
