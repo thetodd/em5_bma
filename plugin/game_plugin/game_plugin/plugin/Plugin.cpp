@@ -13,6 +13,8 @@
 #include "game_plugin/event/BMAFireEvent.h"
 #include "game_plugin/event/BMAFireEventFactory.h"
 #include "game_plugin/command/TriggerCommand.h"
+#include "game_plugin/command/InvestigateCommand.h"
+#include "game_plugin/action/InvestigateBMAAction.h"
 
 #include <em5/plugin/version/PluginVersion.h>
 #include <em5/reflection/CampDefines.h>
@@ -70,7 +72,15 @@ namespace flo11
 				QSF_GAME_CAMP_IS_COMMAND
 			QSF_END_CAMP_CLASS_EXPORT
 
+			QSF_START_CAMP_CLASS_EXPORT(flo11::InvestigateCommand, "InvestigateCommand", "Investigate a bma target entity")
+				QSF_GAME_CAMP_IS_COMMAND
+			QSF_END_CAMP_CLASS_EXPORT
+
 			QSF_START_CAMP_CLASS_EXPORT(flo11::ResetBMAAction, "ResetBMAAction", "Reset BMA action")
+				QSF_CAMP_IS_ACTION
+			QSF_END_CAMP_CLASS_EXPORT
+
+			QSF_START_CAMP_CLASS_EXPORT(flo11::InvestigateBMAAction, "InvestigateBMAAction", "Investigate BMA action")
 				QSF_CAMP_IS_ACTION
 			QSF_END_CAMP_CLASS_EXPORT
 

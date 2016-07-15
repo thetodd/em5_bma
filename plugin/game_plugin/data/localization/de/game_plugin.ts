@@ -11,6 +11,10 @@
         <source>ID_BMA_FIRE_EVENT_NAME</source>
         <translation>BMA</translation>
     </message>
+    <message>
+        <source>ID_FIRE_IN_BUILDING</source>
+        <translation>Feuer im Gebäude: Meldergruppe 2/3</translation>
+    </message>
 </context>
 <context>
     <name>flo11::TriggerBMAEventCommand</name>
