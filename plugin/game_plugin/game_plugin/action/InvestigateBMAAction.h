@@ -10,10 +10,15 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
-#include <em5/freeplay/event/FreeplayEvent.h>
+#include <qsf/logic/action/Action.h>
 
-#include <qsf/message/MessageProxy.h>
-#include <qsf/time/Time.h>
+//[-------------------------------------------------------]
+//[ Forward declarations                                  ]
+//[-------------------------------------------------------]
+namespace qsf
+{
+	class MeshAnimationChannel;
+}
 
 
 //[-------------------------------------------------------]
@@ -28,10 +33,9 @@ namespace flo11
 	//[-------------------------------------------------------]
 	/**
 	*  @brief
-	*    Sample for a Variant of the EMERGENCY 5 freeplay event "medical emergency"
-	*	 It contains the same content like the EM5 event, but the user has an extra task to do: start the "cheering" action with a unit
+	*    EMERGENCY 5 arrest gangster action
 	*/
-	class BMAFireEvent : public em5::FreeplayEvent
+	class InvestigateBMAAction : public qsf::Action
 	{
 
 
@@ -39,7 +43,7 @@ namespace flo11
 	//[ Public definitions                                    ]
 	//[-------------------------------------------------------]
 	public:
-		static const uint32 FREEPLAY_EVENT_ID;		///< "user::MedicalCheerEvent" unique freeplay event ID
+		static const qsf::NamedIdentifier ACTION_ID;	///< "em5::ArrestGangsterAction" unique action identifier
 
 
 	//[-------------------------------------------------------]
@@ -50,52 +54,73 @@ namespace flo11
 		*  @brief
 		*    Default constructor
 		*/
-		BMAFireEvent();
+		InvestigateBMAAction();
 
 		/**
 		*  @brief
 		*    Destructor
 		*/
-		virtual ~BMAFireEvent();
+		virtual ~InvestigateBMAAction();
+
+		/**
+		*  @brief
+		*    Initialize action with values
+		*/
+		void init(const qsf::Entity& targetEntity);
+
+		uint64 getTargetEntityId() const;
 
 
 	//[-------------------------------------------------------]
-	//[ Public virtual em5::FreeplayEvent methods             ]
+	//[ Public virtual qsf::Actions methods                   ]
 	//[-------------------------------------------------------]
 	public:
+		virtual void serialize(qsf::BinarySerializer& serializer) override;
+
+
+	//[-------------------------------------------------------]
+	//[ Protected virtual qsf::Action methods                 ]
+	//[-------------------------------------------------------]
+	protected:
 		virtual bool onStartup() override;
 		virtual void onShutdown() override;
-		virtual void onRun() override;
-		virtual bool onFailure(EventResult& eventResult) override;
-		virtual void updateFreeplayEvent(const qsf::Time& timePassed) override;
-		virtual bool checkEventConfiguration() override;
-		void setTarget(qsf::Entity* target);
-		virtual const qsf::Entity* getFocusEntity() override;
-		void setTargetOnFire();
+		virtual qsf::action::Result updateAction(const qsf::Clock& clock) override;
 
 
 	//[-------------------------------------------------------]
 	//[ Private methods                                       ]
 	//[-------------------------------------------------------]
 	private:
-		void onResetBMAFinished(const qsf::MessageParameters& parameters);
-		void onTargetStopBurning(const qsf::MessageParameters& parameters);
-		void onInvestigationFinished(const qsf::MessageParameters& parameters);
+
+
+	//[-------------------------------------------------------]
+	//[ Private definitions                                   ]
+	//[-------------------------------------------------------]
+	private:
+		enum State
+		{
+			STATE_INIT,
+			STATE_START,
+			STATE_FINISH
+		};
+
 
 	//[-------------------------------------------------------]
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]
 	private:
-		qsf::Entity* mTargetBMA;
-		qsf::MessageProxy mMessageProxy;
-		qsf::MessageProxy mTargetBurningMessageProxy;
-		qsf::MessageProxy mInvestigatingMessageProxy;
+		// Configuration
+		uint64					  mTargetEntityId;	///< Target entity ID of the action
+		qsf::WeakPtr<qsf::Entity> mTargetEntity;	///< Target entity of the action
+
+		State				mCurrentState;			///< The state of the action
+		qsf::MeshAnimationChannel* mAnimationChannel;
 
 
 	//[-------------------------------------------------------]
 	//[ CAMP reflection system                                ]
 	//[-------------------------------------------------------]
-		QSF_CAMP_RTTI()	// Only adds the virtual method "campClassId()", nothing more
+	QSF_CAMP_RTTI()	// Only adds the virtual method "campClassId()", nothing more
 
 
 	};
@@ -104,10 +129,10 @@ namespace flo11
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
 //[-------------------------------------------------------]
-} // user
+} // em5
 
 
 //[-------------------------------------------------------]
 //[ CAMP reflection system                                ]
 //[-------------------------------------------------------]
-QSF_CAMP_TYPE_NONCOPYABLE(flo11::BMAFireEvent)
+QSF_CAMP_TYPE_NONCOPYABLE(flo11::InvestigateBMAAction)

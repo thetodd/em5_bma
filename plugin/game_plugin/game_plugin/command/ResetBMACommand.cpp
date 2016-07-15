@@ -55,6 +55,11 @@ namespace flo11
 			return false;
 		}
 
+		if (bma->isInvestigated() == false) {
+			return false;
+			//Investigate BMA first!
+		}
+
 		return true;
 	}
 

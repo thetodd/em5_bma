@@ -49,6 +49,12 @@
     <ClCompile Include="game_plugin\command\TriggerCommand.cpp">
       <Filter>Source Files\command</Filter>
     </ClCompile>
+    <ClCompile Include="game_plugin\command\InvestigateCommand.cpp">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\action\InvestigateBMAAction.cpp">
+      <Filter>Source Files\action</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_plugin\Export.h">
@@ -74,6 +80,12 @@
     </ClInclude>
     <ClInclude Include="game_plugin\command\TriggerCommand.h">
       <Filter>Source Files\command</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\command\InvestigateCommand.h">
+      <Filter>Source Files\command</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\action\InvestigateBMAAction.h">
+      <Filter>Source Files\action</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
