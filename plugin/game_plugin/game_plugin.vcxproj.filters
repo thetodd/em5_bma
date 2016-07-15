@@ -55,6 +55,12 @@
     <ClCompile Include="game_plugin\event\BMAFalseAlarmEventFactory.cpp">
       <Filter>Source Files\event</Filter>
     </ClCompile>
+    <ClCompile Include="game_plugin\command\InvestigateCommand.cpp">
+      <Filter>Source Files\command</Filter>
+    </ClCompile>
+    <ClCompile Include="game_plugin\action\InvestigateBMAAction.cpp">
+      <Filter>Source Files\action</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="game_plugin\Export.h">
@@ -86,6 +92,12 @@
     </ClInclude>
     <ClInclude Include="game_plugin\event\BMAFalseAlarmEventFactory.h">
       <Filter>Source Files\event</Filter>
+    </ClCompile>
+    <ClInclude Include="game_plugin\command\InvestigateCommand.h">
+      <Filter>Source Files\command</Filter>
+    </ClInclude>
+    <ClInclude Include="game_plugin\action\InvestigateBMAAction.h">
+      <Filter>Source Files\action</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -21,7 +21,8 @@ namespace flo11
 		qsf::Component(prototype),
 		active(false),
 		name(""),
-		mCanTrigger(true)
+		mCanTrigger(true),
+		mIsInvestigated(false)
 	{
 		
 	}
@@ -131,6 +132,16 @@ namespace flo11
 	std::string BMAComponent::getAlarmSound()
 	{
 		return this->mAlarmSound.getLocalAssetName();
+	}
+
+	bool BMAComponent::isInvestigated()
+	{
+		return mIsInvestigated;
+	}
+
+	void BMAComponent::setInvestigatedState(bool state)
+	{
+		this->mIsInvestigated = state;
 	}
 
 }

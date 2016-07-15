@@ -16,6 +16,11 @@
 #include <em5/fire/component/ComplexFireComponent.h>
 #include <em5/component/objects/ObjectDamageComponent.h>
 #include <em5/component/building/BuildingComponent.h>
+#include <em5/gui/EmergencyGui.h>
+#include <em5/gui/IngameHud.h>
+#include <em5/gui/hud/MessageWindow.h>
+#include <em5/EM5Helper.h>
+#include <em5/map/EntityHelper.h>
 
 #include <qsf/map/Entity.h>
 #include <qsf/map/Map.h>
@@ -55,6 +60,12 @@ namespace flo11
 	{
 		BMAComponent* bma = mTargetBMA->getComponent<flo11::BMAComponent>();
 		//No nullptr check, EventFactory did that already
+		qsf::Entity* targetEntity = QSF_MAINMAP.getEntityById(bma->getTargetId());
+		if (targetEntity != nullptr) {
+			// Mark the entity so it wont get effected by other events
+			em5::EventIdComponent& eventIdComponent = targetEntity->getOrCreateComponentSafe<em5::EventIdComponent>();
+			eventIdComponent.setEvent(*this, em5::eventspreadreason::NO_REASON);
+		}
 		
 		std::string eventName = QSF_TRANSLATE_CONTEXTSTRING("flo11::BMAFireEvent", "ID_BMA_FIRE_EVENT_NAME");
 		eventName.append(": ");
@@ -63,38 +74,11 @@ namespace flo11
 		this->setEventName(eventName);
 		this->setNormalPointGain(500);
 
-
 		bma->detectFire(); //BMA AUslösen
-
-		//set Building on fire
-		qsf::Entity* targetEntity = QSF_MAINMAP.getEntityById(bma->getTargetId());
-		if (targetEntity != nullptr) {
-			// Mark the entity so it wont get effected by other events
-			em5::EventIdComponent& eventIdComponent = targetEntity->getOrCreateComponentSafe<em5::EventIdComponent>();
-			eventIdComponent.setEvent(*this, em5::eventspreadreason::NO_REASON);
-
-			em5::ComplexFireComponent* fireComp = targetEntity->getComponent<em5::ComplexFireComponent>();
-			em5::FireComponent* sFireComp = targetEntity->getComponent<em5::FireComponent>();
-			if (fireComp != nullptr) {
-				fireComp->startFire(this);
-				fireComp->setActive(true);
-			}
-			else if (sFireComp != nullptr) {
-				//has simple EM5Fire component
-				QSF_LOG_PRINTS(INFO, "Start simple fire");
-				sFireComp->startFire(this);
-				sFireComp->setActive(true);
-			}
-		}
-
-		em5::ObjectiveHelper objectiveHelper(*this);
-		em5::Objective* objective = objectiveHelper.getObjectiveByTypeId(em5::ObjectiveHelper::OBJECTIVE_NEED_EXTINGUISHFIRES);
-		//getObjectives().insertObjective()
-		objective->increaseNeededNumber(targetEntity);
-
 
 		mMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAResetActionFinished"), boost::bind(&BMAFireEvent::onResetBMAFinished, this, _1));
 		mTargetBurningMessageProxy.registerAt(qsf::MessageConfiguration(em5::Messages::EM5_OBJECT_STOP_BURNING, bma->getTargetId()), boost::bind(&BMAFireEvent::onTargetStopBurning, this, _1));
+		mInvestigatingMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAInvestigationFinished", bma->getEntityId()), boost::bind(&BMAFireEvent::onInvestigationFinished, this, _1));
 
 		setRunning();
 		// Done
@@ -180,6 +164,39 @@ namespace flo11
 				em5::Objective::OBJECTIVETYPE_REQUIRED, getId());
 			resetObjective.setText(QT_TR_NOOP("ID_RESET_BMA_OBJECTIVE_TEXT"));
 			resetObjective.setNeededNumber(1);
+		}
+	}
+
+	void BMAFireEvent::onInvestigationFinished(const qsf::MessageParameters& parameters)
+	{
+		this->setTargetOnFire();
+		EM5_GUI.getIngameHud().getMessageWindow()->addTextMessage(QT_TR_NOOP("ID_FIRE_IN_BUILDING"), qsf::Color3::ORANGE);
+	}
+
+	void BMAFireEvent::setTargetOnFire()
+	{
+		//set Building on fire
+		BMAComponent* bma = mTargetBMA->getComponent<flo11::BMAComponent>();
+		qsf::Entity* targetEntity = QSF_MAINMAP.getEntityById(bma->getTargetId());
+		if (targetEntity != nullptr) {
+			em5::EntityHelper entityHelper(*targetEntity);
+			entityHelper.startFire(this);
+
+			/*em5::ComplexFireComponent* fireComp = targetEntity->getComponent<em5::ComplexFireComponent>();
+			em5::FireComponent* sFireComp = targetEntity->getComponent<em5::FireComponent>();
+			if (fireComp != nullptr) {
+				fireComp->startFire(this);
+				fireComp->setActive(true);
+			}
+			else if (sFireComp != nullptr) {
+				//has simple EM5Fire component
+				QSF_LOG_PRINTS(INFO, "Start simple fire");
+				sFireComp->startFire(this);
+				sFireComp->setActive(true);
+			}*/
+			em5::ObjectiveHelper objectiveHelper(*this);
+			em5::Objective* objective = objectiveHelper.getObjectiveByTypeId(em5::ObjectiveHelper::OBJECTIVE_NEED_EXTINGUISHFIRES);
+			objective->increaseNeededNumber(targetEntity);
 		}
 	}
 

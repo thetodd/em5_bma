@@ -6,7 +6,7 @@
 #include "em5/action/ActionPriority.h"
 #include "em5/action/move/MoveAction.h"
 #include "em5/action/move/TurnToAction.h"
-#include <em5/game/targetpoint/GetEquipmentTargetPointProvider.h>
+#include <em5/game/targetpoint/OnTouchTargetPointProvider.h>
 
 #include <qsf_game/command/CommandContext.h>
 #include <qsf/logic/action/ActionComponent.h>
@@ -55,6 +55,11 @@ namespace flo11
 			return false;
 		}
 
+		if (bma->isInvestigated() == false) {
+			return false;
+			//Investigate BMA first!
+		}
+
 		return true;
 	}
 
@@ -63,8 +68,7 @@ namespace flo11
 		// Access the caller's action plan
 		qsf::ActionComponent& actionComponent = getActionComponent(*context.mCaller);
 		actionComponent.clearPlan(); //alle anderen aktionen abbrechen.
-		//TODO: Use own TargetPointProvider
-		actionComponent.pushAction<em5::MoveAction>(ACTION_PRIORITY, qsf::action::APPEND_TO_BACK).init(new qsf::ai::ReachObjectGoal(*context.mCaller, *context.mTargetEntity, em5::GetEquipmentTargetPointProvider::TARGET_POINT_ID));
+		actionComponent.pushAction<em5::MoveAction>(ACTION_PRIORITY, qsf::action::APPEND_TO_BACK).init(new qsf::ai::ReachObjectGoal(*context.mCaller, *context.mTargetEntity, em5::OnTouchTargetPointProvider::TARGET_POINT_ID));
 		QSF_LOG_PRINTS(INFO, "execute flo11:ResetBMACommand");
 		actionComponent.pushAction<flo11::ResetBMAAction>(ACTION_PRIORITY, qsf::action::APPEND_TO_BACK).init(*context.mTargetEntity);
 

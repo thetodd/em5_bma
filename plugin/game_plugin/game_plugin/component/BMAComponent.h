@@ -39,12 +39,15 @@ namespace flo11
 		void setCanTrigger(bool canTrigger);
 		void setAlarmSound(std::string filePath);
 		std::string getAlarmSound();
+		bool isInvestigated();
+		void setInvestigatedState(bool state);
 
 	protected:
 		void setAlarmLights(bool state);
 
 	private:
 		bool active;
+		bool mIsInvestigated;
 		std::string name;
 		uint64 monitoringEntityId;
 		bool mCanTrigger;
