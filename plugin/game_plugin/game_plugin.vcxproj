@@ -104,7 +104,9 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="game_plugin\action\InvestigateBMAAction.cpp" />
     <ClCompile Include="game_plugin\action\ResetBMAAction.cpp" />
+    <ClCompile Include="game_plugin\command\InvestigateCommand.cpp" />
     <ClCompile Include="game_plugin\command\ResetBMACommand.cpp" />
     <ClCompile Include="game_plugin\command\TriggerCommand.cpp" />
     <ClCompile Include="game_plugin\component\BMAComponent.cpp" />
@@ -118,7 +120,9 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="game_plugin\action\InvestigateBMAAction.h" />
     <ClInclude Include="game_plugin\action\ResetBMAAction.h" />
+    <ClInclude Include="game_plugin\command\InvestigateCommand.h" />
     <ClInclude Include="game_plugin\command\ResetBMACommand.h" />
     <ClInclude Include="game_plugin\command\TriggerCommand.h" />
     <ClInclude Include="game_plugin\component\BMAComponent.h" />
