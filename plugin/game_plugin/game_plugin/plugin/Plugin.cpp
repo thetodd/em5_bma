@@ -12,6 +12,8 @@
 #include "game_plugin/component/BMAComponent.h"
 #include "game_plugin/event/BMAFireEvent.h"
 #include "game_plugin/event/BMAFireEventFactory.h"
+#include "game_plugin/event/BMAFalseAlarmEvent.h"
+#include "game_plugin/event/BMAFalseAlarmEventFactory.h"
 #include "game_plugin/command/TriggerCommand.h"
 
 #include <em5/plugin/version/PluginVersion.h>
@@ -82,6 +84,14 @@ namespace flo11
 			QSF_END_CAMP_CLASS_EXPORT
 
 			QSF_START_CAMP_CLASS_EXPORT(flo11::BMAFireEvent, "BMAFireEvent", "A BMA fire event")
+				EM5_CAMP_IS_FREEPLAY_EVENT
+			QSF_END_CAMP_CLASS_EXPORT
+
+			QSF_START_CAMP_CLASS_EXPORT(flo11::BMAFalseAlarmEventFactory, "BMAFalseAlarmEventFactory", "Factory for BMAFalseAlarm Events")
+				EM5_CAMP_IS_FREEPLAY_EVENT_FACTORY
+			QSF_END_CAMP_CLASS_EXPORT
+
+			QSF_START_CAMP_CLASS_EXPORT(flo11::BMAFalseAlarmEvent, "BMAFalseAlarmEvent", "A BMA false alarm event")
 				EM5_CAMP_IS_FREEPLAY_EVENT
 			QSF_END_CAMP_CLASS_EXPORT
 

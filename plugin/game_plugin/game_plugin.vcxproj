@@ -108,6 +108,8 @@
     <ClCompile Include="game_plugin\command\ResetBMACommand.cpp" />
     <ClCompile Include="game_plugin\command\TriggerCommand.cpp" />
     <ClCompile Include="game_plugin\component\BMAComponent.cpp" />
+    <ClCompile Include="game_plugin\event\BMAFalseAlarmEvent.cpp" />
+    <ClCompile Include="game_plugin\event\BMAFalseAlarmEventFactory.cpp" />
     <ClCompile Include="game_plugin\event\BMAFireEvent.cpp" />
     <ClCompile Include="game_plugin\event\BMAFireEventFactory.cpp" />
     <ClCompile Include="game_plugin\Main.cpp" />
@@ -122,6 +124,8 @@
     <ClInclude Include="game_plugin\command\ResetBMACommand.h" />
     <ClInclude Include="game_plugin\command\TriggerCommand.h" />
     <ClInclude Include="game_plugin\component\BMAComponent.h" />
+    <ClInclude Include="game_plugin\event\BMAFalseAlarmEvent.h" />
+    <ClInclude Include="game_plugin\event\BMAFalseAlarmEventFactory.h" />
     <ClInclude Include="game_plugin\event\BMAFireEvent.h" />
     <ClInclude Include="game_plugin\event\BMAFireEventFactory.h" />
     <ClInclude Include="game_plugin\Export.h" />
