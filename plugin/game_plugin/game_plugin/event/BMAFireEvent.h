@@ -82,6 +82,9 @@ namespace flo11
 		void onTargetStopBurning(const qsf::MessageParameters& parameters);
 		void onInvestigationFinished(const qsf::MessageParameters& parameters);
 
+	protected:
+		void spawnPeople(int count = 10, bool injure = true);
+
 	//[-------------------------------------------------------]
 	//[ Private data                                          ]
 	//[-------------------------------------------------------]

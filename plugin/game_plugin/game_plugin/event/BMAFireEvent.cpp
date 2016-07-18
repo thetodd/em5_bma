@@ -21,12 +21,18 @@
 #include <em5/gui/hud/MessageWindow.h>
 #include <em5/EM5Helper.h>
 #include <em5/map/EntityHelper.h>
+#include <em5/component/spawnpoint/SpawnPointComponent.h>
+#include <em5/base/GameplayAssets.h>
+#include <em5/health/HealthHelper.h>
 
 #include <qsf/map/Entity.h>
 #include <qsf/map/Map.h>
 #include <qsf/QsfHelper.h>
 #include <qsf/Qsf.h>
 #include <qsf/map/MapSystem.h>
+#include <qsf/component/base/TransformComponent.h>
+
+#include <qsf_ai/navigation/NavigationComponent.h>
 
 //[-------------------------------------------------------]
 //[ Namespace                                             ]
@@ -66,7 +72,7 @@ namespace flo11
 			em5::EventIdComponent& eventIdComponent = targetEntity->getOrCreateComponentSafe<em5::EventIdComponent>();
 			eventIdComponent.setEvent(*this, em5::eventspreadreason::NO_REASON);
 		}
-		
+
 		std::string eventName = QSF_TRANSLATE_CONTEXTSTRING("flo11::BMAFireEvent", "ID_BMA_FIRE_EVENT_NAME");
 		eventName.append(": ");
 		eventName.append(bma->getName());
@@ -76,6 +82,11 @@ namespace flo11
 
 		bma->detectFire(); //BMA AUslösen
 
+		//Personen spawnen
+		srand(static_cast <unsigned> (time(0)));
+		int cntPeople = rand() % (20 - 5 + 1) + 5;
+		this->spawnPeople(cntPeople);
+
 		mMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAResetActionFinished"), boost::bind(&BMAFireEvent::onResetBMAFinished, this, _1));
 		mTargetBurningMessageProxy.registerAt(qsf::MessageConfiguration(em5::Messages::EM5_OBJECT_STOP_BURNING, bma->getTargetId()), boost::bind(&BMAFireEvent::onTargetStopBurning, this, _1));
 		mInvestigatingMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAInvestigationFinished", bma->getEntityId()), boost::bind(&BMAFireEvent::onInvestigationFinished, this, _1));
@@ -83,6 +94,58 @@ namespace flo11
 		setRunning();
 		// Done
 		return true;
+	}
+
+	void BMAFireEvent::spawnPeople(int count, bool injure)
+	{
+		BMAComponent* bma = mTargetBMA->getComponent<flo11::BMAComponent>();
+		qsf::Entity* targetEntity = QSF_MAINMAP.getEntityById(bma->getTargetId());
+		if (targetEntity != nullptr) {
+			em5::BuildingComponent* buildingComponent = targetEntity->getComponent<em5::BuildingComponent>();
+			QSF_ASSERT(nullptr != buildingComponent, "BMAFireEvent::spawnPeople does miss the targetEntity", return);
+			if (buildingComponent != nullptr)
+			{
+				QSF_ASSERT(buildingComponent->hasDoor(), "BMAFireEvent::spawnPeople has a building without door", return);
+
+				glm::vec3 position;
+				glm::quat rotation;
+				float distance = 2.0f;
+				for (size_t i = 0; i < count; i++)
+				{
+					if (buildingComponent->getWorldPositionInFrontOfDoor(distance, position, rotation))
+					{
+						QSF_LOG_PRINTS(DEBUG, "BMAFireEvent::spawnPeople spawn");
+						float r3 = (-3) + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - (-3))));
+						float r4 = (-3) + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (3 - (-3))));
+						float deg = (20) + static_cast <float> (rand()) / (static_cast <float> (RAND_MAX / (300 - (20))));
+						rand();
+						position.x = position.x + r3;
+						position.z = position.z + r4;
+						rotation.y = glm::radians<float>(deg);
+						qsf::Transform transform;
+						transform.setPositionAndRotation(position, rotation);
+
+						qsf::Entity* person = em5::SpawnPointComponent::spawnRandomAt(transform, getMap(), em5::assets::SPAWNPOOL_DEFAULT_PERSON, false);
+						qsf::ai::NavigationComponent* nav = person->getComponent<qsf::ai::NavigationComponent>();
+						if (nav != nullptr) {
+							nav->setActive(false);
+						}
+						if (injure) {
+							em5::HealthHelper healthHelper(*person);
+							if (static_cast <float> (rand()) <= 0.02) {
+								healthHelper.injurePersonBySmoke(this);
+							}
+							else if (static_cast <float> (rand()) <= 0.01) {
+								healthHelper.injurePersonByFire(this);
+							}
+						}
+					}
+				}
+			}
+		}
+		else {
+			QSF_LOG_PRINTS(ERROR, "BMAFireEvent::spawnPeople: Kein targetEntity");
+		}
 	}
 
 	void BMAFireEvent::onShutdown()
@@ -106,7 +169,7 @@ namespace flo11
 	}
 
 	void BMAFireEvent::onRun()
-	{		
+	{
 	}
 
 	bool BMAFireEvent::onFailure(EventResult& eventResult)
@@ -200,7 +263,7 @@ namespace flo11
 		}
 	}
 
-//[-------------------------------------------------------]
-//[ Namespace                                             ]
-//[-------------------------------------------------------]
+	//[-------------------------------------------------------]
+	//[ Namespace                                             ]
+	//[-------------------------------------------------------]
 } // user
