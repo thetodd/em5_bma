@@ -10,6 +10,8 @@
 //[-------------------------------------------------------]
 //[ Includes                                              ]
 //[-------------------------------------------------------]
+#include "game_plugin/event/BMAFireEvent.h"
+
 #include <em5/freeplay/event/FreeplayEvent.h>
 
 #include <qsf/message/MessageProxy.h>
@@ -31,7 +33,7 @@ namespace flo11
 	*    Sample for a Variant of the EMERGENCY 5 freeplay event "medical emergency"
 	*	 It contains the same content like the EM5 event, but the user has an extra task to do: start the "cheering" action with a unit
 	*/
-	class BMAFalseAlarmEvent : public em5::FreeplayEvent
+	class BMAFalseAlarmEvent : public BMAFireEvent
 	{
 
 

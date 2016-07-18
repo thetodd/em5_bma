@@ -73,8 +73,11 @@ namespace flo11
 		this->setEventName(eventName);
 		this->setNormalPointGain(500);
 
-
 		bma->detectFire(); //BMA AUslösen
+
+		srand(static_cast <unsigned> (time(0)));
+		int cntPeople = rand() % (20 - 5 + 1) + 5;
+		this->spawnPeople(cntPeople, false);
 
 		mInvestigatingMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAInvestigationFinished", bma->getEntityId()), boost::bind(&BMAFalseAlarmEvent::onInvestigationFinished, this, _1));
 		mResetBMAMessageProxy.registerAt(qsf::MessageConfiguration("flo11::BMAResetActionFinished"), boost::bind(&BMAFalseAlarmEvent::onResetBMAFinished, this, _1));
