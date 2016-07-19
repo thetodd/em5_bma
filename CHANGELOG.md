@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
 ## [Unreleased]
+### Added
+- Automatic spawning of people in front of building, if it has a main door.
+- People spawned get randomly injured by smoke or fire, if not false alarm event.
 
 ## [0.2.2] 2016-07-11
 ### Added
